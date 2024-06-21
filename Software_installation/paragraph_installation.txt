@@ -1,0 +1,19 @@
+Paragraph installation
+Instructions for bash shell
+
+Following instructions from https://github.com/oxpig/Paragraph
+
+mkdir <PARAGRAPH_DIR>
+cd <PARAGRAPH_DIR>
+
+1. Clone git repository and cd to it
+First, verify that git is installed.
+git clone https://github.com/oxpig/Paragraph.git
+cd Paragraph/
+
+2. Create a virtual env
+python3 -m venv <VENV_DIR>/parag_venv
+source <VENV_DIR>/parag_env/bin/activate
+
+3. Install
+pip install .

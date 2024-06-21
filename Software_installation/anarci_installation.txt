@@ -1,0 +1,7 @@
+conda create -n anarci_env biopython ipykernel
+conda activate anarci_env
+conda install -c bioconda hmmer=3.3.2 -y
+git clone https://github.com/oxpig/ANARCI.git
+cd ANARCI/
+python setup.py install
+
