@@ -34,17 +34,18 @@ except:
 
 for id in complex_list:
     ready_dir = os.path.join(path_ready, id)
-    print('ready dir:'+ready_dir)
     complex_dir = os.path.join(run_rep, id)
-    print('complex dir:'+complex_dir)
     os.mkdir(complex_dir)
     os.chdir(complex_dir)
     ab = ready_dir + '/' + id + '_r_u.pdb'
     ab_cp = id + '_r_u.pdb'
     ag = ready_dir + '/' + id + '_l_u.pdb'
     ag_cp = id + '_l_u.pdb'
+    unambig = ready_dir + '/' + id + '_restraint-bodies.tbl'
+    unambig_cp = id + '_restraint-bodies.tbl'
     restraints_file = path_restraints + id + '-restr.txt' 
     restraints_cp = id + '-restr.txt'
     shutil.copy(ab, ab_cp)
     shutil.copy(ag, ag_cp)
     shutil.copy(restraints_file, restraints_cp)
+    shutil.copy(unambig, unambig_cp)
