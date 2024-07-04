@@ -1,21 +1,17 @@
 #!/usr/bin/python3.12
-import os, shutil
+import os, shutil, filepaths
 
 # Path to file with antibody-antigen complexes PDB IDs
-file = '~/reduced_set/complex_list_short.txt'
-file = os.path.expanduser(file)
+file = os.path.expanduser(filepaths.id_file)
 
 # Path to directory with file restraints from Haddock paper
-path_restraints = '~/reduced_set/'
-path_restraints = os.path.expanduser(path_restraints)
+restraints_dir = os.path.expanduser(filepaths.restraints_dir)
 
 # Path to directory with HADDOCK-ready files
-path_ready = '~/HADDOCK/BM5-clean/HADDOCK-ready'
-path_ready = os.path.expanduser(path_ready)
+hready_dir = os.path.expanduser(filepaths.haddock_ready_dir)
 
 # Path to directory to store files for HADDOCK replication study
-parent_dir = '~/others/testing_dirs'
-parent_dir = os.path.expanduser(parent_dir)
+parent_dir = os.path.expanduser(filepaths.parent_dir)
 
 complex_list = []
 try:
@@ -33,7 +29,7 @@ except:
     exit()
 
 for id in complex_list:
-    ready_dir = os.path.join(path_ready, id)
+    ready_dir = os.path.join(hready_dir, id)
     complex_dir = os.path.join(parent_dir, id+'_all')
     try:
         os.chdir(complex_dir)
@@ -41,7 +37,7 @@ for id in complex_list:
         ab_cp = id + '_r_u.pdb'
         ag = ready_dir + '/' + id + '_l_u.pdb'
         ag_cp = id + '_l_u.pdb'
-        restraints_file = path_restraints + id + '-restr.txt' 
+        restraints_file = restraints_dir + id + '-restr.txt' 
         restraints_cp = id + '-restr.txt'
         shutil.copy(ab, ab_cp)
         shutil.copy(ag, ag_cp)

@@ -1,13 +1,8 @@
-import argparse, os
+import os, filepaths
 
-parser = argparse.ArgumentParser()
-parser.add_argument('parentdir', help='Parent directory')
-parser.add_argument('idfile', help='File with antibody-antigen complex PDB IDs')
-args = parser.parse_args()
-parent_dir = args.parentdir
-id_file = args.idfile
-parent_dir = os.path.expanduser(parent_dir)
-id_file = os.path.expanduser(id_file)
+# Directory for HADDOCK replication study files and list with PDB complex IDs
+parent_dir = os.path.expanduser(filepaths.parent_dir)
+id_file = os.path.expanduser(filepaths.id_file)
 
 try:
     os.chdir(parent_dir)
