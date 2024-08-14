@@ -1,10 +1,22 @@
-import argparse, os, csv, subprocess
+"""
+Extracts the epitope predictions from Discotope3 output and saves them as 
+passive residues for docking.
+
+If the number of residues is < 15 or > 25, the 20 residues with the highest
+score will be saved for docking.  
+
+Usage:
+    python filtered_epitope_prediction.py <csv file with antigens names> \ 
+    <absolute/path/to/Discotope3/output> <absolute/path/to/results/directory>
+"""
+
+import argparse, os, csv
 from operator import itemgetter
 
 parser = argparse.ArgumentParser()
 parser.add_argument('antigen_list', type=str, help='csv file with antigens PDB ID list')
 parser.add_argument('predictions_dir', type=str, help='Absolute path to directory with Discotope3 epitope predictions')
-parser.add_argument('output_dir', type=str, help='Absolute path to directory to save epitope residues for docking')
+parser.add_argument('output_dir', type=str, help='Absolute path to directory to save passive epitope residues for docking')
 
 args = parser.parse_args()
 antigen_file = os.path.expanduser(args.antigen_list)
@@ -61,10 +73,7 @@ def get_prediction(content):
                 row1['calibrated_score'] = float(row1['calibrated_score'])
             sorted_content = sorted(content, key=itemgetter('calibrated_score'), reverse=True)
             top_20 = sorted_content[:20]
-            print(top_20)
             for row2 in top_20:
-                print('top20 row')
-                print(row2)
                 residues.append(int(row2['res_id']))
             residues = sorted(residues)
             residues_str = str(residues).replace('[','').replace(']','').replace(',','').replace("'","")
@@ -74,13 +83,13 @@ def get_prediction(content):
 
 os.chdir(predictions_dir)
 for id in antigen_list:
-    filename = id + '-ag_B_discotope3.csv'
+    filename = id + '_B_discotope3.csv'
     try: 
         with open(filename, 'r') as file:
             content = csv.DictReader(file)
             predicted_epi_residues = get_prediction(content)
-            prediction_file = os.path.join(output_dir, id + '_pred-active.list')
+            prediction_file = os.path.join(output_dir, id + '_pred-passive.list')
     except:
         print(f'An error occurred when trying to parse the file {filename}')
     with open(prediction_file, 'w') as newfile:
-        newfile.write(predicted_epi_residues+'\n\n')
+        newfile.write('\n'+predicted_epi_residues+'\n')

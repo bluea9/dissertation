@@ -1,3 +1,13 @@
+"""
+Downloads structures in PDB format from the RCSB website and formats them as
+antigens for docking with Haddock.
+
+Usage:
+    python antigen_processing.py <csv file with antigens PDB ID list> \ 
+    <absolute/path/to/output/directory>
+
+This script requieres the pdb-tools repository.
+"""
 import argparse, os, csv, subprocess
 
 # Tools
@@ -63,17 +73,17 @@ for antigen in antigen_list:
     print(antigen)
 # Get PDB antigen files
     fetch = 'python ' + pdbtools + '/pdb_fetch.py '
-# Remove HETATM records in the PDB antigen files
-    hetatm = pdbtools + '/pdb_delhetatm.py'
 # Rename chain
     chain = pdbtools + '/pdb_chain.py -B'
 # Renumber residues
     renum = pdbtools + '/pdb_reres.py' 
+# Keep ATOM lines only
+    atom = " grep '^ATOM' | "
 # Add TER and END
     tidy = pdbtools + '/pdb_tidy.py'
     file_name = antigen.upper() + '-ag-HADDOCK.pdb'
     try: 
-        command = fetch + antigen + ' | ' + hetatm + ' | ' + chain + ' | ' + renum + ' | ' + tidy + ' > ' + file_name
+        command = fetch + antigen + ' | ' + chain + ' | ' + renum + ' | ' + atom + tidy + ' > ' + file_name
         subprocess.run(command, shell=True)
     except:
         print(f'Antigen {antigen} could not be processed.')
