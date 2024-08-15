@@ -1,0 +1,9 @@
+# Example filepaths
+parent_dir = '~/Docking'
+id_file = '~/Dissertation/complex_list.txt'
+restraints_dir = '~/Dissertation/Restraints'
+haddock_ready_dir = '~/Dissertation/HADDOCK/BM5-clean/HADDOCK-ready'
+haddock_tools_dir = '~/software/haddock-tools'
+discotope_dir = '~/Dissertation/Discotope'
+run_param_file = '~/Dissertation/Files_docking/run.param'
+fv_dir = '~/Dissertation/Dataset/Fv_files'

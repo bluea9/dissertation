@@ -1,6 +1,12 @@
 import argparse, os, re, subprocess
 import pandas as pd
 
+"""
+Script that takes the Top 100 predicted docked structures using Haddock and evaluates them against 
+a target file using DockQ. 
+Note1: Results stored in working directory.
+Note2: Requires conda environment dockq_env
+"""
 # Tools
 dock = '~/software/DockQ/src/DockQ/DockQ.py'
 dock = os.path.expanduser(dock)
@@ -89,7 +95,8 @@ quality = []
 
 for file in filenames:
     structure_file = os.path.join(docking_dir, 'run1/structures/it1/water', file)
-    command = 'python ' + dock + ' ' + structure_file + ' ' + target + ' --short --allowed_mismatches 10'
+    #command = 'python ' + dock + ' ' + structure_file + ' ' + target + ' --short --allowed_mismatches 10'
+    command = 'DockQ ' + structure_file + ' ' + target + ' --short --allowed_mismatches 10'
     # Run DockQ to generate metrics for each predicted structure
     scores_dq = subprocess.run(command, shell=True, capture_output=True, text=True)
     scores_dq = scores_dq.stdout

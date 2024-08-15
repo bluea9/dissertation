@@ -93,7 +93,7 @@ quality = []
 
 for file in filenames:
     structure_file = os.path.join(docking_dir, 'run1/structures/it1/water', file)
-    command = 'DockQ ' + structure_file + ' ' + target + ' --short'
+    command = 'DockQ ' + structure_file + ' ' + target + ' --short --allowed_mismatches 10'
     # Run DockQ to generate metrics for each predicted structure  (from previous line --allowed_mismatches 10)
     scores_dq = subprocess.run(command, shell=True, capture_output=True, text=True)
     scores_dq = scores_dq.stdout
@@ -140,6 +140,5 @@ for list in lists_scores:
 
 # Create DataFrame from the Series
 df = pd.DataFrame({'Structure_file' : filenames, 'Haddock_score' : haddock_scores, 'DockQ' : dockq, 'Quality' : quality, 'iRMS' : irms, 'lRMS' : lrms, 'Fnat' : fnat, 'Fnonnat' : fnonnat, 'Clashes' : clashes, 'F1' : f1, 'DockQ_F1' : dockq_f1})
-#print(df)
 
 df.to_csv(complex+'_metrics.csv', index=False)

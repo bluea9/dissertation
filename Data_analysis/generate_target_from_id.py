@@ -75,9 +75,7 @@ def delete_file(file):
         print(f'An error occurred while trying to delete {file}: {error}')
 
 work_dir = os.getcwd()
-print(work_dir)
 pdb_file = os.path.join(work_dir, pdb_id + '.pdb') 
-print(pdb_file)
 # Renumber antibody structures according to Clothia system
 fv_file = pdb_id + '-ch.pdb'
 command = ['python', immunopdb, '-i', pdb_file, '-o', fv_file, '--scheme', 'c', '--fvonly', '--rename', '--splitscfv']
