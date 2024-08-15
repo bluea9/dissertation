@@ -1,0 +1,4 @@
+name: rosetta_env
+channels:
+  - defaults
+prefix: /home/s2562233/.conda/envs/rosetta_env

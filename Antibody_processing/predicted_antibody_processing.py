@@ -8,7 +8,7 @@ haddocktools = os.path.expanduser('~/software/haddock-tools')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('antibody_prediction', type=str, help='PDB file with the predicted antibody structure')
-parser.add_argument('output_dir', type=str, help='Absolute path to directory to save epitope residues for docking')
+parser.add_argument('output_dir', type=str, help='Absolute path to directory to save HV loop residues for docking')
 
 args = parser.parse_args()
 antibody_prediction = os.path.expanduser(args.antibody_prediction)
