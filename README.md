@@ -1,5 +1,5 @@
 # Dissertation 
-## Prediction of antigen-specificity of self-reactive antibodies in rheumatoid arthritis
+## Prediction of antigen-specificity
 
 This repository contains scripts used to:
 - Process antibody and antigen PDB files for docking with Haddock2.5
